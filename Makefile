@@ -1,7 +1,9 @@
-.PHONY: build clean
-
-TOOL_VERSION=$(shell git describe --tags `git rev-list --tags --max-count=1`)
-TAG=$(TOOL_VERSION)
+LATEST_TAG:=$(shell git rev-list --tags --max-count=1)
+ifneq (, $(LATEST_TAG))
+TOOL_VERSION = $(shell git describe --tags $(LATEST_TAG) )
+else
+TOOL_VERSION = latest
+endif
 
 
 GITVERSION:=$(shell git --version | grep ^git | sed 's/^.* //g')
@@ -25,15 +27,15 @@ endif
 
 
 build:
-	rm -f $(BUILD_TARGET)/local/$(TARGET_TOOL_WITH_VERSION)
+	rm -rf $(BUILD_TARGET)/local/$(TARGET_TOOL_WITH_VERSION)
 	$(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/local/$(TARGET_TOOL_WITH_VERSION)/packctl .
 
 build-linux-amd64:
-	rm -f $(BUILD_TARGET)/amd/$(TARGET_TOOL_WITH_VERSION)
+	rm -rf $(BUILD_TARGET)/amd/$(TARGET_TOOL_WITH_VERSION)
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 $(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/amd/$(TARGET_TOOL_WITH_VERSION)/packctl .
 
 build-linux-arm64:
-	rm -f $(BUILD_TARGET)/arm/$(TARGET_TOOL_WITH_VERSION)
+	rm -rf $(BUILD_TARGET)/arm/$(TARGET_TOOL_WITH_VERSION)
 	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 $(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/arm/$(TARGET_TOOL_WITH_VERSION)/packctl .
 
 clean:
