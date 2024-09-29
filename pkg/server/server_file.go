@@ -5,6 +5,7 @@ type ServerFile struct {
 	Version     string           `yaml:"version"`
 	Description string           `yaml:"description"`
 	Servables   []ServableConfig `yaml:"servables"`
+	Image       ImageInfo        `yaml:"image"`
 }
 
 type ServableConfig struct {
@@ -16,7 +17,13 @@ type ServableConfig struct {
 }
 
 type MethodDetail struct {
-	Name           string `yaml:"name"`
-	Description    string `yaml:"description,omitempty"`
-	ReadmeFilePath string `yaml:"readmeFilePath"`
+	Name        string `yaml:"name"`
+	Description string `yaml:"description,omitempty"`
+	Readme      string `yaml:"readme"`
+}
+
+type ImageInfo struct {
+	Registry   string `yaml:"registry"`
+	Repository string `yaml:"repository"`
+	Tag        string `yaml:"tag"`
 }

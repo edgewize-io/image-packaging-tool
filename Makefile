@@ -41,3 +41,7 @@ build-linux-arm64:
 clean:
 	$(GO) clean ./...
 	rm -rf $(BUILD_TARGET)
+
+test: clean build-linux-amd64
+	 scp target/amd/packctl-latest/packctl root@172.31.187.201:/usr/local/bin/
+	#scp target/amd/packctl-latest/packctl root@192.168.120.2:/usr/local/bin/
