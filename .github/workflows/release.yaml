@@ -1,0 +1,30 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # 仅在推送带有版本标签的提交时触发
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '^1.21'
+          check-latest: true
+
+      - name: Cross compile
+        run: |
+          sudo apt-get install rhash -y
+          go install github.com/mitchellh/gox@v1.0.1
+          mkdir -p build
+          ./hack/xcompile.sh
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/*
+          draft: true
+          fail_on_unmatched_files: true
