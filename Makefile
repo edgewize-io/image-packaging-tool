@@ -32,11 +32,11 @@ build:
 
 build-linux-amd64:
 	rm -rf $(BUILD_TARGET)/amd/$(TARGET_TOOL_WITH_VERSION)
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 $(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/amd/$(TARGET_TOOL_WITH_VERSION)/packctl .
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 $(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/amd/$(TARGET_TOOL_WITH_VERSION)/packctl-amd .
 
 build-linux-arm64:
 	rm -rf $(BUILD_TARGET)/arm/$(TARGET_TOOL_WITH_VERSION)
-	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 $(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/arm/$(TARGET_TOOL_WITH_VERSION)/packctl .
+	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 $(GO) build $(GO_FLAGS) -o $(BUILD_TARGET)/arm/$(TARGET_TOOL_WITH_VERSION)/packctl-arm .
 
 clean:
 	$(GO) clean ./...

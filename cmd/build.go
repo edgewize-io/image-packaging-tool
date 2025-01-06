@@ -302,10 +302,6 @@ def start():
 
     servable_config_list = []
     device_ids=0
-    device_ids_env = os.getenv("ASCEND_VISIBLE_DEVICES")
-    if device_ids_env is not None:
-        str_list = device_ids_env.split(",")
-        device_ids = [int(num) for num in str_list]
 
     # Total 4 worker, one worker occupy device 0, the model inference tasks of other workers are forwarded to the worker
     # that occupies the device.
